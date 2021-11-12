@@ -20,16 +20,18 @@
         <hook type="after_plugin_install" src="hooks/Outsystems/android/cutActivityToMainPackage.js" />
 
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
-            <activity android:exported="true" android:launchMode="singleTop" android:name=".MapActivity" />
+            <activity android:exported="true" android:launchMode="singleTop" android:name=".MapActivity"  android:theme="@style/MyMaterialTheme" />
         </config-file>
 
         <resource-file src="sdk/android/bluegps_sdk-release-1.0.2-alpha.aar" target="libs/bluegps_sdk-release-1.0.2-alpha.aar"/>
 		<framework src="sdk/android/dependencies.gradle" custom="true" type="gradleReference"/>
 
 
-        <source-file src="src/android/MapActivity.kt" target-dir="java/com/outsystems/bluegps" />
-        <source-file src="src/android/BlueGPS.kt" target-dir="java/com/outsystems/bluegps" />
+        <source-file src="src/android/MapActivity.java" target-dir="src/com/outsystems/bluegps" />
+        <source-file src="src/android/BlueGPS.java" target-dir="src/com/outsystems/bluegps" />
 
+
+        <resource-file src="resources/android/menu/settings_menu.xml" target="res/menu/settings_menu.xml" />
 
         <resource-file src="resources/android/layout/activity_map.xml" target="res/layout/activity_map.xml" />
         <resource-file src="resources/android/layout/toolbar_map_view.xml" target="res/layout/toolbar_map_view.xml" />

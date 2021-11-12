@@ -5,6 +5,7 @@ const constants={
     resPath : path.join("platforms","android","app","src","main","res"),
     stringsPath : path.join("values","strings.xml"),
     colorsPath : path.join("values","colors.xml"),
+    stylesPath : path.join("values","styles.xml"),
     pluginId : "cordova-outsystems-bluegps"
 }
 
@@ -16,7 +17,7 @@ module.exports = function (context) {
 
     const projectRoot = context.opts.cordova.project ? context.opts.cordova.project.root : context.opts.projectRoot;
 
-    var files = [constants.stringsPath,constants.colorsPath]
+    var files = [constants.stringsPath,constants.colorsPath,constants.stylesPath]
 
     
 
