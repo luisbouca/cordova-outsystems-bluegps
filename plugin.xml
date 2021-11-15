@@ -11,8 +11,12 @@
                 <param name="android-package" value="com.outsystems.bluegps.BlueGPS" />
             </feature>
         </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml" />
 
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-feature android:name="android.hardware.location.gps" android:required="true" />
+        </config-file>
 
         <hook type="after_plugin_install" src="hooks/Outsystems/android/replaceBundleId.js" />
         <hook type="after_plugin_install" src="hooks/Outsystems/android/changeManifest.js" />

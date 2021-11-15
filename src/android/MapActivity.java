@@ -92,7 +92,7 @@ private void setListenerOnMapView() {
                     if (navigationMode) {
                         runOnUiThread(() -> {
                             source = position;
-                            binding.tvDestination.setText("Destination: ("+position.getX().toString()+"), "+position.getY().toString()+")");
+                            binding.tvDestination.setText("Destination: ("+String.format("%.3f", position.getX())+"), "+String.format("%.3f", position.getY())+")");
                             showHideLayoutDestination(true);
                         });
                     } else {

@@ -1,11 +1,15 @@
 package com.outsystems.bluegps;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.*;
+import android.content.pm.PackageManager;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.material.snackbar.Snackbar;
 import $appid.MapActivity;
 import com.synapseslab.bluegps_sdk.core.BlueGPSLib;
 import com.synapseslab.bluegps_sdk.data.model.advertising.AdvertisingStatus;
@@ -20,6 +24,7 @@ import kotlin.coroutines.Continuation;
 import kotlin.coroutines.EmptyCoroutineContext;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PermissionHelper;
 import org.apache.cordova.PluginResult;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -43,6 +48,7 @@ public class BlueGPS extends CordovaPlugin {
     private BlueGPSAdvertisingService blueGPSAdvertisingService = null;
     private CallbackContext callback;
     private final String appId = "$appid"; 
+    String [] permissions = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION };
 
     @Override
     protected void pluginInitialize() {
@@ -58,12 +64,37 @@ public class BlueGPS extends CordovaPlugin {
     }
 
     @Override
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException {
+        super.onRequestPermissionResult(requestCode, permissions, grantResults);
+        if (requestCode == 1){
+            if (grantResults[0]== PackageManager.PERMISSION_DENIED){
+                Toast.makeText(cordova.getActivity(),
+                        "Location Permission is required for navigation!",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+    public boolean hasPermisssion() {
+        for(String p : permissions)
+        {
+            if(!PermissionHelper.hasPermission(this, p))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         callback = callbackContext;
         boolean status = false;
         PluginResult result = null;
         switch (action) {
             case INIT:
+                if(!hasPermisssion()){
+                    PermissionHelper.requestPermissions(this,1,permissions);
+                }
                 cordova.getThreadPool().execute(() -> {
                     try {
                         sdkEnvironment = new SdkEnvironment();
