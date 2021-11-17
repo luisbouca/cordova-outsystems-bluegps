@@ -1,7 +1,7 @@
 var exec = require('cordova/exec');
 
 exports.init = function (success, error,sdkKey,sdkSecret,sdkEndpoint,enableNetwork) {
-    exec(success, error, 'BlueGPS', 'init', [sdkKey,sdkSecret,sdkEndpoint,enableNetwork]);
+    exec(success, error, 'BlueGPS', 'initializeSDK', [sdkKey,sdkSecret,sdkEndpoint,enableNetwork]);
 };
 
 exports.login = function (success, error,username,password,token) {

@@ -57,6 +57,26 @@
                 <param name="ios-package" value="BlueGPS" />
             </feature>
         </config-file>
-        <source-file src="src/ios/BlueGPS.m" />
+
+        <preference name="USESWIFTLANGUAGEVERSION" default="5"/>
+        <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
+        <config-file target="*-Info.plist" parent="NSBluetoothAlwaysUsageDescription">
+			<string>This app needs access to the bluetooth.</string>
+		</config-file>
+
+        <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+			<string>This app needs access to the location services.</string>
+		</config-file>
+        
+
+        <framework src="sdk/ios/SynapsesSDK.xcframework" custom="true" embed="true"/>
+		<!--source-file src="sdk/ios/SynapsesSDK.xcframework" target-dir="lib" framework="true"/-->
+
+        <source-file src="src/ios/BlueGPS.swift" />
+        <source-file src="src/ios/MapViewController.swift" />
+
+        <resource-file src="src/ios/MapView.xib" />
+
+        <source-file src="src/ios/BlueGPS-Bridging-Header.h" />
     </platform>
 </plugin>

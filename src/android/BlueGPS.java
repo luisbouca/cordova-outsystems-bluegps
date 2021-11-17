@@ -38,7 +38,7 @@ import kotlin.coroutines.CoroutineContext;
 
 public class BlueGPS extends CordovaPlugin {
 
-    private final String INIT = "init";
+    private final String INIT = "initializeSDK";
     private final String LOGIN = "login";
     private final String OPENMAP = "openMap";
     private final String STARTADV = "startAdv";
